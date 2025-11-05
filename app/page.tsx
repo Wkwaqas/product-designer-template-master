@@ -103,6 +103,10 @@ const Navbar = () => {
   const leftItems = NAV_ITEMS.slice(0, mid);
   const rightItems = NAV_ITEMS.slice(mid);
 
+  // Filter out Service and Skills on mobile
+  const mobileLeftItems = leftItems.filter(item => item.id !== 'service');
+  const mobileRightItems = rightItems.filter(item => item.id !== 'skills');
+
 
   const renderLink = (item: { name: string; id: string }) => (
     <a
@@ -110,7 +114,7 @@ const Navbar = () => {
       href={`#${item.id}`}
       onClick={(e) => handleNavClick(e, item.id)}
       aria-current={active === item.id ? "page" : undefined}
-      className={`shrink-0 px-2 lg:px-4 text-white text-sm md:text-base lg:text-lg transition-all duration-200 min-w-[90px] md:min-w-[110px] lg:min-w-[130px] h-9 md:h-10 lg:h-12 flex items-center justify-center rounded-full truncate ${
+      className={`shrink-0 px-[2vw] sm:px-3 lg:px-4 text-white text-[2.8vw] sm:text-sm md:text-base lg:text-lg transition-all duration-200 h-8 sm:h-9 md:h-10 lg:h-12 flex items-center justify-center rounded-full whitespace-nowrap ${
         active === item.id
           ? "bg-[#FD853A] shadow-md hover:bg-[#e67731]"
           : "hover:bg-white/10"
@@ -123,26 +127,36 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className="fixed left-1/2 -translate-x-1/2 top-4 z-50 w-auto max-w-[1200px] h-[60px] lg:h-[70px] bg-[#171717]/95 backdrop-blur-md rounded-full flex items-center justify-between px-4 lg:px-6 shadow-lg border border-white/10 transition-all duration-300"
+      className="fixed left-1/2 -translate-x-1/2 top-2 sm:top-4 z-50 w-[96%] sm:w-auto max-w-[1200px] h-[52px] sm:h-[60px] lg:h-[70px] bg-[#171717]/95 backdrop-blur-md rounded-full flex items-center justify-between px-[2vw] sm:px-4 lg:px-6 shadow-lg border border-white/10 transition-all duration-300"
     >
       {/* Left side */}
-      <div className="flex items-center gap-2 lg:gap-3 overflow-x-auto hide-scrollbar">
-        {leftItems.map(renderLink)}
+      <div className="flex items-center gap-[1.5vw] sm:gap-2 lg:gap-3 flex-shrink-0">
+        <div className="flex gap-[1.5vw] sm:hidden">
+          {mobileLeftItems.map(renderLink)}
+        </div>
+        <div className="hidden sm:flex gap-2 lg:gap-3">
+          {leftItems.map(renderLink)}
+        </div>
       </div>
 
       {/* Center Logo */}
-      <div className="flex mx-12 items-center justify-center px-3 lg:px-4 whitespace-nowrap">
-        <div className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-[#FD853A] rounded-full flex items-center justify-center text-white font-bold text-base md:text-lg lg:text-xl transition-all duration-300">
+      <div className="flex mx-[2vw] sm:mx-2 md:mx-4 lg:mx-8 items-center justify-center flex-shrink-0">
+        <div className="w-[9vw] h-[9vw] max-w-[36px] max-h-[36px] sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-[#FD853A] rounded-full flex items-center justify-center text-white font-bold text-[3vw] sm:text-base md:text-lg lg:text-xl transition-all duration-300">
           SA
         </div>
-        <p className="uppercase ml-3 hidden sm:block text-white font-bold text-sm md:text-base lg:text-lg truncate max-w-[100px] md:max-w-[140px] lg:max-w-40">
+        <p className="uppercase ml-2 sm:ml-3 hidden md:block text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg truncate max-w-[60px] sm:max-w-[100px] md:max-w-[140px] lg:max-w-40">
           Subhan
         </p>
       </div>
 
       {/* Right side */}
-      <div className="flex items-center gap-2 lg:gap-3 overflow-x-auto hide-scrollbar">
-        {rightItems.map(renderLink)}
+      <div className="flex items-center gap-[1.5vw] sm:gap-2 lg:gap-3 flex-shrink-0">
+        <div className="flex gap-[1.5vw] sm:hidden">
+          {mobileRightItems.map(renderLink)}
+        </div>
+        <div className="hidden sm:flex gap-2 lg:gap-3">
+          {rightItems.map(renderLink)}
+        </div>
       </div>
     </nav>
   );
@@ -157,12 +171,12 @@ const page = () => {
       {/* Hero Section */}
       <section
         id="home"
-        className="w-full h-screen flex flex-col items-center justify-between relative"
+        className="w-full min-h-screen flex flex-col items-center relative px-4 sm:px-6 pb-0 pt-[200px] sm:pt-[100px] md:pt-[120px]"
       >
         {/* Text */}
-        <div className="flex flex-col items-center mt-[120px] relative ">
+        <div className="flex flex-col items-center relative z-10 mb-6 sm:mb-10 md:mb-16">
           <div className="relative">
-            <div className="border border-[#171717] text-[#171717] text-[18px] px-[25px] py-[3px] rounded-[40px] font-semibold">
+            <div className="border border-[#171717] text-[#171717] text-sm sm:text-base md:text-[18px] px-4 sm:px-[25px] py-[3px] rounded-[40px] font-semibold">
               Hello!
             </div>
             <Image
@@ -170,15 +184,15 @@ const page = () => {
               alt="Description of image"
               width={30}
               height={30}
-              className="w-7 h-7 absolute -top-5 -right-6"
+              className="w-5 h-5 sm:w-7 sm:h-7 absolute -top-4 sm:-top-5 -right-5 sm:-right-6"
             />
           </div>
 
-          <div className="relative mt-2 text-center">
-            <h2 className="text-[#171717] text-7xl font-semibold">
+          <div className="relative mt-2 text-center px-2">
+            <h2 className="text-[#171717] text-[45px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-tight">
               I'm <span className="text-[#FD853A]">Subhan</span>,
             </h2>
-            <h2 className="text-[#171717] text-7xl font-semibold">
+            <h2 className="text-[#171717] text-[45px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-tight">
               Product Designer
             </h2>
 
@@ -187,14 +201,14 @@ const page = () => {
               alt="Description of image"
               width={71}
               height={74}
-              className="w-[71px] h-[74px] absolute -bottom-15 -left-15"
+              className="w-10 h-10 sm:w-14 sm:h-14 md:w-[71px] md:h-[74px] absolute -bottom-10 sm:-bottom-15 -left-8 sm:-left-15 hidden sm:block"
             />
           </div>
         </div>
 
         {/* Image Container */}
-        <div className="relative">
-          <div className="w-[710px] h-[355px] bg-[#FEB273] rounded-t-full "></div>
+        <div className="relative w-full flex justify-center mb-0 flex-1 items-end">
+          <div className="w-[85%] max-w-[650px] h-[160px] sm:h-[200px] md:h-[260px] lg:h-[320px] bg-[#FEB273] rounded-t-full"></div>
 
           {/* Profile Image */}
           <Image
@@ -202,20 +216,20 @@ const page = () => {
             width={400}
             height={600}
             alt="Profile Picture"
-            className="w-auto h-[500px] object-center object-cover absolute bottom-0 left-1/2 -translate-x-1/2 z-2"
+            className="w-auto h-[230px] sm:h-[290px] md:h-[360px] lg:h-[450px] object-center object-cover absolute bottom-0 left-1/2 -translate-x-1/2 z-2"
           />
 
-          <div className="flex items-center justify-between backdrop-blur-[5px] bg-white/10 border border-white font-semibold rounded-full absolute bottom-10 left-1/2 -translate-x-1/2 z-3 px-2 py-1.5">
+          <div className="flex items-center justify-between backdrop-blur-[5px] bg-white/10 border border-white font-semibold rounded-full absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-3 px-2 py-1.5 text-sm sm:text-base">
             <Link
               href="#portfolio"
-              className="flex items-center bg-[#FD853A] px-5 py-2.5 rounded-full"
+              className="flex items-center bg-[#FD853A] px-3 sm:px-5 py-2 sm:py-2.5 rounded-full"
             >
               <p className="">Portfolio</p>
-              <RxArrowTopRight className="w-6 h-6 " />
+              <RxArrowTopRight className="w-4 h-4 sm:w-6 sm:h-6" />
             </Link>
 
             <Link href="#hire-me">
-              <p className="px-3 text-[#FD853A]">Hire me</p>
+              <p className="px-2 sm:px-3 text-[#FD853A]">Hire me</p>
             </Link>
           </div>
         </div>
@@ -225,28 +239,28 @@ const page = () => {
       {/* Service Section */}
       <section
         id="service"
-        className="w-full h-[750px] relative bg-[#171717] rounded-[50px] pt-16 pb-10 overflow-hidden z-40"
+        className="w-full min-h-[750px] relative bg-[#171717] rounded-[30px] sm:rounded-[50px] pt-12 sm:pt-16 pb-10 overflow-hidden z-40"
       >
         {/* Background Image with Opacity */}
         <div className="absolute inset-0 bg-[url('/section-bg.png')] bg-cover bg-center opacity-20"></div>
 
-        <div className="relative z-20 flex flex-col gap-16">
+        <div className="relative z-20 flex flex-col gap-8 sm:gap-12 md:gap-16">
           {/* Headings */}
-          <div className="flex items-center justify-between mx-[70px]">
-            <h5 className="text-[#FCFCFD] text-[48px] font-medium">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mx-4 sm:mx-8 md:mx-12 lg:mx-[70px] gap-4">
+            <h5 className="text-[#FCFCFD] text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-medium">
               My <span className="text-[#FD853A]">Services</span>
             </h5>
-            <p className="w-[575px] text-[17px] text-white">
+            <p className="w-full lg:w-[575px] text-sm sm:text-base md:text-[17px] text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
               lacus nunc, posuere in justo vulputate, bibendum sodales
             </p>
           </div>
 
           {/* Cards */}
-          <div className="w-full px-[70px] flex flex-wrap justify-between">
+          <div className="w-full px-4 sm:px-8 md:px-12 lg:px-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Card no 1 */}
-            <div className="group relative w-[380px] h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
-              <h5 className="border-b border-white/40 font-medium text-3xl pt-10 pb-6 pl-6 pr-2">
+            <div className="group relative w-full max-w-[380px] mx-auto h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
+              <h5 className="border-b border-white/40 font-medium text-2xl sm:text-3xl pt-8 sm:pt-10 pb-5 sm:pb-6 pl-5 sm:pl-6 pr-2">
                 Web Development
               </h5>
 
@@ -290,8 +304,8 @@ const page = () => {
             </div>
 
             {/* Card no 2 */}
-            <div className="group relative w-[380px] h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
-              <h5 className="border-b border-white/40 font-medium text-3xl pt-10 pb-6 pl-6 pr-2">
+            <div className="group relative w-full max-w-[380px] mx-auto h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
+              <h5 className="border-b border-white/40 font-medium text-2xl sm:text-3xl pt-8 sm:pt-10 pb-5 sm:pb-6 pl-5 sm:pl-6 pr-2">
                 Web Development
               </h5>
 
@@ -335,8 +349,8 @@ const page = () => {
             </div>
 
             {/* Card no 3 */}
-            <div className="group relative w-[380px] h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
-              <h5 className="border-b border-white/40 font-medium text-3xl pt-10 pb-6 pl-6 pr-2">
+            <div className="group relative w-full max-w-[380px] mx-auto h-[490px] flex flex-col justify-between bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] overflow-hidden">
+              <h5 className="border-b border-white/40 font-medium text-2xl sm:text-3xl pt-8 sm:pt-10 pb-5 sm:pb-6 pl-5 sm:pl-6 pr-2">
                 Web Development
               </h5>
 
@@ -383,38 +397,38 @@ const page = () => {
       </section>
 
       {/* Experience and Education Section */}
-      <section id="education" className="w-full py-20 px-[71px] bg-white">
+      <section id="education" className="w-full py-12 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-[71px] bg-white">
         {/* Heading */}
-        <div className="text-center pt-20 mb-14 ">
-          <h5 className="text-[#FD853A] font-bold text-5xl">
+        <div className="text-center pt-10 sm:pt-16 md:pt-20 mb-10 sm:mb-12 md:mb-14">
+          <h5 className="text-[#FD853A] font-bold text-3xl sm:text-4xl md:text-5xl px-4">
             <span className="text-[#344054]">My </span>Education & Experience
           </h5>
         </div>
 
         {/* Timeline Container */}
-        <div className="max-w-4xl mx-auto relative mb-[100px] ">
-          {/* Vertical Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-300"></div>
+        <div className="max-w-4xl mx-auto relative mb-12 sm:mb-16 md:mb-[100px]">
+          {/* Vertical Line - Hidden on mobile */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-300"></div>
 
           {/* Timeline Items */}
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-10 md:space-y-12">
             {/* Experience Item 1 */}
-            <div className="relative flex items-center">
-              <div className="w-1/2 pr-8 text-right">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-1">
+            <div className="relative flex flex-col md:flex-row items-start md:items-center">
+              <div className="w-full md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-1">
                   Cognizant, Mumbai
                 </h3>
                 <p className="text-gray-500 mb-3">Sep 2016- July 2020</p>
               </div>
 
               {/* Timeline Dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#FD853A] rounded-full border-4 border-white shadow-md z-10"></div>
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#FD853A] rounded-full border-4 border-white shadow-md z-10"></div>
 
-              <div className="w-1/2 pl-8">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-3">
+              <div className="w-full md:w-1/2 md:pl-8">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-3">
                   Experience Designer
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                   lacus nunc, posuere in justo vulputate, bibendum sodales
                 </p>
@@ -422,22 +436,22 @@ const page = () => {
             </div>
 
             {/* Experience Item 2 */}
-            <div className="relative flex items-center">
-              <div className="w-1/2 pr-8 text-right">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-1">
+            <div className="relative flex flex-col md:flex-row items-start md:items-center">
+              <div className="w-full md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-1">
                   Sugee Pvt limited, Mumbai
                 </h3>
                 <p className="text-gray-500 mb-3">Sep 2020- July 2023</p>
               </div>
 
               {/* Timeline Dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#344054] rounded-full border-4 border-white shadow-md z-10"></div>
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#344054] rounded-full border-4 border-white shadow-md z-10"></div>
 
-              <div className="w-1/2 pl-8">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-3">
+              <div className="w-full md:w-1/2 md:pl-8">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-3">
                   UI/UX Designer
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                   lacus nunc, posuere in justo vulputate, bibendum sodales
                 </p>
@@ -445,22 +459,22 @@ const page = () => {
             </div>
 
             {/* Experience Item 3 */}
-            <div className="relative flex items-center">
-              <div className="w-1/2 pr-8 text-right">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-1">
+            <div className="relative flex flex-col md:flex-row items-start md:items-center">
+              <div className="w-full md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-1">
                   Cinetstox, Mumbai
                 </h3>
                 <p className="text-gray-500 mb-3">Sep 2023</p>
               </div>
 
               {/* Timeline Dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#FD853A] rounded-full border-4 border-white shadow-md z-10"></div>
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#FD853A] rounded-full border-4 border-white shadow-md z-10"></div>
 
-              <div className="w-1/2 pl-8">
-                <h3 className="text-2xl font-semibold text-[#344054] mb-3">
+              <div className="w-full md:w-1/2 md:pl-8">
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#344054] mb-3">
                   Lead UX Designer
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                   lacus nunc, posuere in justo vulputate, bibendum sodales
                 </p>
@@ -473,42 +487,42 @@ const page = () => {
       {/* Why Hire Me Section */}
       <section
         id="hire-me"
-        className="w-full h-screen flex flex-col md:flex-row items-center justify-between rounded-[35px] bg-gray-200 p-8 md:p-12 shadow-sm"
+        className="w-full min-h-screen flex flex-col md:flex-row items-center justify-between rounded-[20px] sm:rounded-[35px] bg-gray-200 p-6 sm:p-8 md:p-12 shadow-sm gap-8"
       >
         {/* Left Image */}
-        <div className="relative shrink-0 w-full md:w-1/2 flex justify-center mb-8 md:mb-0">
+        <div className="relative shrink-0 w-full md:w-1/2 flex justify-center">
           <Image
             src="/profile-picture.png"
             alt="Happy Woman"
             width={400}
             height={600}
-            className="w-auto h-[510px] relative z-20"
+            className="w-auto h-[350px] sm:h-[450px] md:h-[510px] relative z-20"
           />
-          <div className="absolute w-[350px] h-[400px] bg-[#feb173] rounded-xl z-10 bottom-0 justify-self-end"></div>
+          <div className="absolute w-[250px] h-[300px] sm:w-[300px] sm:h-[350px] md:w-[350px] md:h-[400px] bg-[#feb173] rounded-xl z-10 bottom-0 justify-self-end"></div>
         </div>
 
         {/* Right Content */}
         <div className="md:w-1/2 text-center md:text-left">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
             Why <span className="text-orange-500">Hire me</span>?
           </h2>
-          <p className="text-gray-500 mb-8 max-w-md mx-auto md:mx-0">
+          <p className="text-gray-500 mb-6 sm:mb-8 max-w-md mx-auto md:mx-0 text-sm sm:text-base">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus
             nunc, posuere in justo vulputate, bibendum sodales.
           </p>
 
-          <div className="flex justify-center md:justify-start gap-12 mb-8">
+          <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-8 sm:gap-12 mb-6 sm:mb-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-800">450+</h3>
-              <p className="text-gray-500">Project Completed</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-800">450+</h3>
+              <p className="text-gray-500 text-sm sm:text-base">Project Completed</p>
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-gray-800">450+</h3>
-              <p className="text-gray-500">Project Completed</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-800">450+</h3>
+              <p className="text-gray-500 text-sm sm:text-base">Project Completed</p>
             </div>
           </div>
 
-          <button className="px-6 py-3 border border-gray-800 rounded-xl font-medium hover:bg-gray-800 text-gray-800 hover:text-white transition">
+          <button className="px-5 sm:px-6 py-2.5 sm:py-3 border border-gray-800 rounded-xl font-medium hover:bg-gray-800 text-gray-800 hover:text-white transition text-sm sm:text-base">
             Hire me
           </button>
         </div>
@@ -517,7 +531,7 @@ const page = () => {
       {/* Skills Section */}
       <section
         id="skills"
-        className="w-full min-h-screen px-[71px] py-20 rounded-[50px] bg-[#171717] relative overflow-hidden"
+        className="w-full min-h-screen px-4 sm:px-8 md:px-12 lg:px-[71px] py-12 sm:py-16 md:py-20 rounded-[30px] sm:rounded-[50px] bg-[#171717] relative overflow-hidden"
       >
         {/* Background Image with Opacity */}
         <div className="absolute inset-0 bg-[url('/section-bg.png')] bg-cover bg-center opacity-20"></div>
@@ -525,25 +539,25 @@ const page = () => {
         {/* Content */}
         <div className="relative z-10">
           {/* Header */}
-          <div className="flex items-center justify-between mb-16">
-            <h2 className="text-5xl font-bold text-white">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-12 sm:mb-14 md:mb-16 gap-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
               My <span className="text-[#FD853A]">Skills</span>
             </h2>
-            <p className="w-[575px] text-[17px] text-white/80">
+            <p className="w-full lg:w-[575px] text-sm sm:text-base md:text-[17px] text-white/80">
               I've specialized in these technologies and tools to create
               exceptional digital experiences
             </p>
           </div>
 
           {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Design Skills */}
-            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] p-8">
+            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[25px] sm:rounded-[35px] p-6 sm:p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-white"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -556,7 +570,7 @@ const page = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-semibold text-white">Design</h3>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">Design</h3>
               </div>
               <div className="space-y-4">
                 <SkillBar name="UI/UX Design" progress={90} />
@@ -567,12 +581,12 @@ const page = () => {
             </div>
 
             {/* Development Skills */}
-            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] p-8">
+            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[25px] sm:rounded-[35px] p-6 sm:p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-white"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -585,7 +599,7 @@ const page = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-semibold text-white">
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">
                   Development
                 </h3>
               </div>
@@ -598,12 +612,12 @@ const page = () => {
             </div>
 
             {/* Tools Skills */}
-            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[35px] p-8">
+            <div className="bg-[#686868]/20 backdrop-blur-lg border border-white/40 rounded-[25px] sm:rounded-[35px] p-6 sm:p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FD853A] rounded-xl flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-white"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -616,7 +630,7 @@ const page = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-semibold text-white">Tools</h3>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">Tools</h3>
               </div>
               <div className="space-y-4">
                 <SkillBar name="Git" progress={85} />
@@ -630,10 +644,10 @@ const page = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="w-full min-h-screen px-[71px] py-20">
-        <div className="flex items-center mb-12">
+      <section id="projects" className="w-full min-h-screen px-4 sm:px-8 md:px-12 lg:px-[71px] py-12 sm:py-16 md:py-20">
+        <div className="flex items-center mb-8 sm:mb-10 md:mb-12">
           <div>
-            <h2 className="text-5xl font-bold text-gray-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800">
               Let's have a look at
               <br />
               my <span className="text-[#FD853A]">Portfolio</span>
@@ -642,7 +656,7 @@ const page = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Project Card 1 */}
           <div className="col-span-1">
             <Image
@@ -650,12 +664,12 @@ const page = () => {
               alt="Project Lirante"
               width={600}
               height={400}
-              className="w-full h-[400px] object-cover rounded-3xl shadow-2xl overflow-hidden"
+              className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
             />
-            <div className="mt-6 text-gray-800 ">
-              <h3 className="text-3xl font-bold mb-2">Lirante (Title)</h3>
-              <p className="text-md mt-2 mb-4">UI/UX Design (description)</p>
-              <Link href="#" className="text-md">
+            <div className="mt-4 sm:mt-6 text-gray-800">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-2">Lirante (Title)</h3>
+              <p className="text-sm sm:text-md mt-2 mb-4">UI/UX Design (description)</p>
+              <Link href="#" className="text-sm sm:text-md">
                 Live Link: (link)
               </Link>
             </div>
@@ -668,12 +682,12 @@ const page = () => {
               alt="Project Lirante"
               width={600}
               height={400}
-              className="w-full h-[400px] object-cover rounded-3xl shadow-2xl overflow-hidden"
+              className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
             />
-            <div className="mt-6 text-gray-800 ">
-              <h3 className="text-3xl font-bold mb-2">Lirante (Title)</h3>
-              <p className="text-md mt-2 mb-4">UI/UX Design (description)</p>
-              <Link href="#" className="text-md">
+            <div className="mt-4 sm:mt-6 text-gray-800">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-2">Lirante (Title)</h3>
+              <p className="text-sm sm:text-md mt-2 mb-4">UI/UX Design (description)</p>
+              <Link href="#" className="text-sm sm:text-md">
                 Live Link: (link)
               </Link>
             </div>
@@ -682,24 +696,24 @@ const page = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full h-auto text-black ">
-        <div className="flex flex-col items-center py-32">
-          <h2 className="text-gray-800 text-[64px] font-bold leading-18 text-center w-[60%] mb-24">
+      <section id="contact" className="w-full h-auto text-black">
+        <div className="flex flex-col items-center py-16 sm:py-24 md:py-32 px-4">
+          <h2 className="text-gray-800 text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold leading-tight sm:leading-snug text-center w-full sm:w-[90%] md:w-[80%] lg:w-[60%] mb-12 sm:mb-16 md:mb-24">
             Have an Awesome Project Idea?{" "}
             <span className="text-[#fd853a]">let's Discuss</span>
           </h2>
-          <div className="flex items-center justify-center gap-10 text-gray-800 text-xl">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 md:gap-10 text-gray-800 text-base sm:text-lg md:text-xl">
             <div className="flex items-center gap-2">
-              <IoLogoWhatsapp className="text-[#fd853a] text-[30px]" />
-              <p>Whatsapp Number</p>
+              <IoLogoWhatsapp className="text-[#fd853a] text-[24px] sm:text-[30px]" />
+              <p className="text-sm sm:text-base md:text-xl">Whatsapp Number</p>
             </div>
             <div className="flex items-center gap-2">
-              <MdEmail className="text-[#fd853a] text-[30px]" />
-              <p>Email Address</p>
+              <MdEmail className="text-[#fd853a] text-[24px] sm:text-[30px]" />
+              <p className="text-sm sm:text-base md:text-xl">Email Address</p>
             </div>
             <div className="flex items-center gap-2">
-              <FaLocationDot className="text-[#fd853a]" />
-              <p>Location, Address</p>
+              <FaLocationDot className="text-[#fd853a] text-[20px] sm:text-[24px]" />
+              <p className="text-sm sm:text-base md:text-xl">Location, Address</p>
             </div>
           </div>
         </div>
